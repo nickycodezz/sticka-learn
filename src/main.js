@@ -22,7 +22,7 @@ document.getElementById("snap").onclick = () => {
 
 // Save current canvas as sticker
 document.getElementById("save").onclick = () => {
-  const name = prompt("Name your sticker:", "My Sticker") || "My Sticker";
+  const name = prompt("Name your sticker:", "My Sticker") || "My StickeR";
   const dataURL = canvas.toDataURL("image/png"); // transparent-friendly
   saveSticker(name, dataURL);
   renderGallery(); // refresh list
