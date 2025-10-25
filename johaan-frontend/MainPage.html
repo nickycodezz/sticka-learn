@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Main Page</title>
+    </head>
+
+    <style>
+        title{
+            font-family: "Chiller";
+            color: azure;
+        }
+
+        body{
+            background-color: orangered;
+        }
+
+        img.CameraPlace{
+            float: initial;
+            width: 600px;
+            height: auto;
+            margin: 10px 50px 10px 500px;
+        }
+
+        img.ChatboxPlace{
+            float: initial;
+            width: 600px;
+            height: auto;
+            margin: 10px 50px 10px 500px;
+        }
+
+        p{
+            font-family: "Agency FB";
+            font-size: 50px;
+            margin: 10px 10px 10px 300px;
+        }
+
+        button{
+            float: left;
+            width: 200px;
+            height: auto;
+            margin: 10px 10px 10px 10px;
+            background-color: yellow;
+            border: greenyellow;
+            clip-path: polygon(100% 0, 20% 0, 0% 50%, 20% 100%, 100% 100%);
+            border-radius: 10px;
+        }
+
+        button1{
+            float: right;
+            position: fixed;
+            top: 40px;
+            right: 20px;
+            width: 200px;
+            height: 200px;
+            margin: 10px 10px 10px 10px;
+            text-align: center;
+            align-content: center;
+            background-color: yellow;
+            border: greenyellow;
+
+        }
+    </style>
+
+    <body>
+        <button onclick = "location.href = 'StartScreen.html'">Back</button>
+        <p>Place the object you want to come to life in the camera view!!</p>
+
+        <img class = "CameraPlace" src = "CameraPlaceholder.png" alt = "Camera Placeholder">
+
+        <p>And what kind of story do you want with your characters?</p>
+
+        <img class = "ChatboxPlace" src = "ChatboxPlaceholder.png" alt = "Chatbox Placeholder">
+
+        <button1 onclick = "location.href = 'Gallery.html'"> Gallery </button1>
+    </body>
+
+</html>
