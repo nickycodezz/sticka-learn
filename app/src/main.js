@@ -1,6 +1,5 @@
 import { saveSticker, loadStickers, deleteSticker } from "./storage.js";
 
-// Elements
 const video = document.getElementById("cam");
 const canvas = document.getElementById("photo");
 const ctx = canvas.getContext("2d");
@@ -10,7 +9,6 @@ const btnSave = document.getElementById("save");
 const btnRetake = document.getElementById("retake");
 const galleryEl = document.getElementById("gallery");
 
-// --- Camera control
 async function startCam() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -21,12 +19,9 @@ async function startCam() {
   }
 }
 
-// --- UI state
 function showLive() {
   video.classList.remove("hidden");
   canvas.classList.add("hidden");
-  video.style.display = "block";
-  canvas.style.display = "none";
   btnSnap.classList.remove("hidden");
   btnSave.classList.add("hidden");
   btnRetake.classList.add("hidden");
@@ -35,14 +30,11 @@ function showLive() {
 function showPreview() {
   video.classList.add("hidden");
   canvas.classList.remove("hidden");
-  video.style.display = "none";
-  canvas.style.display = "block";
   btnSnap.classList.add("hidden");
   btnSave.classList.remove("hidden");
   btnRetake.classList.remove("hidden");
 }
 
-// --- Helper: save smaller consistent images
 function getStandardizedDataURL() {
   const TW = 480, TH = 360;
   const off = document.createElement("canvas");
@@ -53,7 +45,6 @@ function getStandardizedDataURL() {
   return off.toDataURL("image/png");
 }
 
-// --- Actions
 btnSnap.onclick = () => {
   canvas.width = video.videoWidth || 960;
   canvas.height = video.videoHeight || 720;
@@ -71,7 +62,6 @@ btnSave.onclick = () => {
 
 btnRetake.onclick = () => showLive();
 
-// --- Gallery render
 function renderGallery() {
   const items = loadStickers();
   galleryEl.innerHTML = "";
@@ -83,37 +73,34 @@ function renderGallery() {
     return;
   }
 
-  items
-    .sort((a, b) => b.id - a.id)
-    .forEach((s) => {
-      const card = document.createElement("div");
-      card.className = "card";
+  items.sort((a, b) => b.id - a.id).forEach((s) => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-      const del = document.createElement("button");
-      del.className = "delete-btn";
-      del.textContent = "✖";
-      del.onclick = () => {
-        deleteSticker(s.id);
-        renderGallery();
-      };
+    const del = document.createElement("button");
+    del.className = "delete-btn";
+    del.textContent = "✖";
+    del.onclick = () => {
+      deleteSticker(s.id);
+      renderGallery();
+    };
 
-      const img = document.createElement("img");
-      img.className = "thumb";
-      img.src = s.img;
-      img.alt = s.name;
+    const img = document.createElement("img");
+    img.className = "thumb";
+    img.src = s.img;
+    img.alt = s.name;
 
-      const title = document.createElement("h3");
-      title.className = "card-title";
-      title.textContent = s.name;
+    const title = document.createElement("h3");
+    title.className = "card-title";
+    title.textContent = s.name;
 
-      card.appendChild(del);
-      card.appendChild(img);
-      card.appendChild(title);
-      galleryEl.appendChild(card);
-    });
+    card.appendChild(del);
+    card.appendChild(img);
+    card.appendChild(title);
+    galleryEl.appendChild(card);
+  });
 }
 
-// --- Init
 startCam();
 showLive();
 renderGallery();
