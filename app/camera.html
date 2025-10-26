@@ -20,14 +20,23 @@
   </header>
 
   <main class="container">
+
+    <!-- NEW: Prompt banner sits above the camera -->
+    <section id="prompt-banner" class="prompt-banner">
+      <p id="promptText" class="prompt-text">Loading an idea…</p>
+      <button id="anotherPrompt" class="btn secondary small">Another Idea</button>
+    </section>
+
     <section id="camera-section">
       <div class="camera-wrap">
         <video id="cam" autoplay playsinline></video>
         <canvas id="photo" width="960" height="720" class="hidden"></canvas>
       </div>
       <div class="actions">
-        <button id="snap" class="btn primary">Take Photo</button>
-        <button id="save" class="btn success hidden">Save as Sticker</button>
+        <button id="snap" class="btn shutter" aria-label="Take Photo">
+          <span class="visually-hidden">Take Photo</span>
+        </button>
+        <button id="save" class="btn success hidden">Save Inspiration</button>
         <button id="retake" class="btn secondary hidden">Retake</button>
       </div>
     </section>

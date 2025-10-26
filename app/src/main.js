@@ -1,4 +1,6 @@
+// app/src/main.js
 import { saveSticker, loadStickers, deleteSticker } from "./storage.js";
+import { getImaginationPrompt } from "./ai.js"; // NEW
 
 const video = document.getElementById("cam");
 const canvas = document.getElementById("photo");
@@ -8,6 +10,10 @@ const btnSnap = document.getElementById("snap");
 const btnSave = document.getElementById("save");
 const btnRetake = document.getElementById("retake");
 const galleryEl = document.getElementById("gallery");
+
+// NEW: prompt UI elements
+const promptEl = document.getElementById("promptText");
+const btnAnother = document.getElementById("anotherPrompt");
 
 async function startCam() {
   try {
@@ -53,7 +59,7 @@ btnSnap.onclick = () => {
 };
 
 btnSave.onclick = () => {
-  const name = prompt("Name your sticker:", "My Sticker") || "My Sticker";
+  const name = prompt("Name your inspiration:", "My Wonder") || "My Wonder";
   const dataURL = getStandardizedDataURL();
   saveSticker(name, dataURL);
   renderGallery();
@@ -68,7 +74,7 @@ function renderGallery() {
   if (!items.length) {
     const empty = document.createElement("div");
     empty.style.color = "#6b7280";
-    empty.textContent = "No stickers yet. Take a photo and click “Save as Sticker”.";
+    empty.textContent = "No inspo yet. Take and save a photo.";
     galleryEl.appendChild(empty);
     return;
   }
@@ -101,6 +107,31 @@ function renderGallery() {
   });
 }
 
+// === NEW: Prompt handling ===
+async function setPromptFromAI() {
+  try {
+    promptEl.textContent = "Loading an idea…";
+    const p = await getImaginationPrompt();
+    promptEl.textContent = p;
+  } catch (e) {
+    promptEl.textContent = "I wonder… can you find something interesting?";
+  }
+}
+
+// “Another Idea” button
+if (btnAnother) {
+  btnAnother.onclick = async () => {
+    btnAnother.disabled = true;
+    btnAnother.textContent = "Thinking…";
+    await setPromptFromAI();
+    btnAnother.disabled = false;
+    btnAnother.textContent = "Another Idea";
+  };
+}
+
+// Init
 startCam();
 showLive();
 renderGallery();
+setPromptFromAI(); // NEW: load a prompt as soon as camera page opens
+
