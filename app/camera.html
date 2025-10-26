@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wonder Lens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="brand">Wonder Lens</h1>
+  </header>
+
+  <main class="container">
+    <section id="camera-section">
+      <div class="camera-wrap">
+        <video id="cam" autoplay playsinline></video>
+        <canvas id="photo" width="960" height="720" class="hidden"></canvas>
+      </div>
+      <div class="actions">
+        <button id="snap" class="btn primary">Take Photo</button>
+        <button id="save" class="btn success hidden">Save as Sticker</button>
+        <button id="retake" class="btn secondary hidden">Retake</button>
+      </div>
+    </section>
+
+    <section id="gallery-section">
+      <h2 class="section-title">My Stickers</h2>
+      <div id="gallery" class="gallery"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>Prototype — camera → preview → save/retake → gallery</small>
+  </footer>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

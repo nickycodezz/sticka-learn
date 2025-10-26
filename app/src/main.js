@@ -1,10 +1,16 @@
-import { saveSticker, loadStickers, clearStickers } from "./storage.js";
+import { saveSticker, loadStickers, deleteSticker } from "./storage.js";
 
-// connect to HTML elements
+// Elements
 const video = document.getElementById("cam");
 const canvas = document.getElementById("photo");
 const ctx = canvas.getContext("2d");
 
+const btnSnap = document.getElementById("snap");
+const btnSave = document.getElementById("save");
+const btnRetake = document.getElementById("retake");
+const galleryEl = document.getElementById("gallery");
+
+// --- Camera control
 async function startCam() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -15,50 +21,99 @@ async function startCam() {
   }
 }
 
-// Take photo → draw into canvas
-document.getElementById("snap").onclick = () => {
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-};
-
-// Save current canvas as sticker
-document.getElementById("save").onclick = () => {
-  const name = prompt("Name your sticker:", "My Sticker") || "My StickeR";
-  const dataURL = canvas.toDataURL("image/png"); // transparent-friendly
-  saveSticker(name, dataURL);
-  renderGallery(); // refresh list
-};
-
-// Show gallery
-document.getElementById("show").onclick = () => renderGallery();
-
-// Clear gallery
-document.getElementById("clear").onclick = () => {
-  if (confirm("Delete all saved stickers?")) {
-    clearStickers();
-    renderGallery();
-  }
-};
-
-// Render thumbnails
-function renderGallery() {
-  const container = document.getElementById("gallery");
-  container.innerHTML = "";
-  const items = loadStickers();
-  items.forEach(s => {
-    const card = document.createElement("div");
-    card.style.cssText = "display:flex;flex-direction:column;align-items:center;";
-    const img = document.createElement("img");
-    img.src = s.img;
-    img.width = 120;
-    img.height = 90;
-    img.style.cssText = "object-fit:contain;border:2px solid #444;border-radius:8px;background:#222;";
-    const cap = document.createElement("div");
-    cap.textContent = s.name;
-    cap.style.cssText = "font-size:.85rem;color:#bbb;margin-top:4px;";
-    card.appendChild(img);
-    card.appendChild(cap);
-    container.appendChild(card);
-  });
+// --- UI state
+function showLive() {
+  video.classList.remove("hidden");
+  canvas.classList.add("hidden");
+  video.style.display = "block";
+  canvas.style.display = "none";
+  btnSnap.classList.remove("hidden");
+  btnSave.classList.add("hidden");
+  btnRetake.classList.add("hidden");
 }
 
+function showPreview() {
+  video.classList.add("hidden");
+  canvas.classList.remove("hidden");
+  video.style.display = "none";
+  canvas.style.display = "block";
+  btnSnap.classList.add("hidden");
+  btnSave.classList.remove("hidden");
+  btnRetake.classList.remove("hidden");
+}
+
+// --- Helper: save smaller consistent images
+function getStandardizedDataURL() {
+  const TW = 480, TH = 360;
+  const off = document.createElement("canvas");
+  off.width = TW;
+  off.height = TH;
+  const octx = off.getContext("2d");
+  octx.drawImage(canvas, 0, 0, TW, TH);
+  return off.toDataURL("image/png");
+}
+
+// --- Actions
+btnSnap.onclick = () => {
+  canvas.width = video.videoWidth || 960;
+  canvas.height = video.videoHeight || 720;
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  showPreview();
+};
+
+btnSave.onclick = () => {
+  const name = prompt("Name your sticker:", "My Sticker") || "My Sticker";
+  const dataURL = getStandardizedDataURL();
+  saveSticker(name, dataURL);
+  renderGallery();
+  showLive();
+};
+
+btnRetake.onclick = () => showLive();
+
+// --- Gallery render
+function renderGallery() {
+  const items = loadStickers();
+  galleryEl.innerHTML = "";
+  if (!items.length) {
+    const empty = document.createElement("div");
+    empty.style.color = "#6b7280";
+    empty.textContent = "No stickers yet. Take a photo and click “Save as Sticker”.";
+    galleryEl.appendChild(empty);
+    return;
+  }
+
+  items
+    .sort((a, b) => b.id - a.id)
+    .forEach((s) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const del = document.createElement("button");
+      del.className = "delete-btn";
+      del.textContent = "✖";
+      del.onclick = () => {
+        deleteSticker(s.id);
+        renderGallery();
+      };
+
+      const img = document.createElement("img");
+      img.className = "thumb";
+      img.src = s.img;
+      img.alt = s.name;
+
+      const title = document.createElement("h3");
+      title.className = "card-title";
+      title.textContent = s.name;
+
+      card.appendChild(del);
+      card.appendChild(img);
+      card.appendChild(title);
+      galleryEl.appendChild(card);
+    });
+}
+
+// --- Init
 startCam();
+showLive();
+renderGallery();
