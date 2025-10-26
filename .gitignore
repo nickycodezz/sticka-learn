@@ -30,3 +30,4 @@ __pycache__/
 # Sandbox / scratch folders
 team-sandbox/**/temp/
 app/src/config.js
+app/src/config.js
