@@ -1,0 +1,31 @@
+# === Wonder Lens Git Ignore ===
+
+# Sensitive keys & configs
+app/src/config.js
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE / editor settings
+.idea/
+.vscode/
+
+# Node.js dependencies
+node_modules/
+dist/
+build/
+
+# Logs & caches
+*.log
+__pycache__/
+.cache/
+
+# Sandbox / scratch folders
+team-sandbox/**/temp/
