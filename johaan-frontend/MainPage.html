@@ -19,7 +19,7 @@
             float: initial;
             width: 1000px;
             height: auto;
-            margin: 10px 10px 10px 300px;
+            margin: 10px 10px 10px 400px;
         }
 
 
@@ -33,7 +33,7 @@
         button{
             float: left;
             width: 200px;
-            height: auto;
+            height: 100px;
             margin: 10px 10px 10px 10px;
             background-color: yellow;
             border: greenyellow;
@@ -41,28 +41,34 @@
             border-radius: 10px;
         }
 
-        button1{
-            float: right;
+        button2{
+            float: left;
             position: fixed;
             top: 40px;
-            right: 20px;
+            left: 20px;
             width: 200px;
             height: 200px;
             margin-top: 200px;
             text-align: center;
             align-content: center;
-            background-color: transparent;
-        }
-
-        img.GalleryIcon{
-            float: right;
-            top: 5000px;
-            right: 20px;
-            width: 200px;
-            height: 200px;
-            margin-top: 200px;
 
         }
+
+        img.CameraIcon{
+            position: fixed;
+            top: 50%;
+            left: 80px;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 150px;
+        }
+
+        p1{
+            font-family: "Agency FB";
+            font-size: 50px;
+            margin: 100px 10px 10px 300px;
+        }
+
     </style>
 
     <body>
@@ -71,15 +77,18 @@
 
         <img class = "CameraPlace" src = "CameraPlaceholder.png" alt = "Camera Placeholder">
 
-        <img class = "GalleryIcon" src = "GalleryIcon.png" alt = "GalleryIcon">
-
-        <button1 onclick = "location.href = 'GalleryPage.html'"> </button1>
-
         <img class = "CameraIcon" src = "CameraIcon.png" alt = "Camera Button">
+
+        <button2 type = "button" onclick = "temp()"></button2>
+
+        <p1>Gallery Here. More pics will appear as they are taken.</p1>
     </body>
 
-    <script>
-        function temp
+    <script type = "text/javascript">
+        function temp(){
+            alert("This works!!");
+        }
+
     </script>
 
 </html>
