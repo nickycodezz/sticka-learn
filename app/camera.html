@@ -1,14 +1,22 @@
+<script>
+  if (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html')) {
+    // do nothing
+  } else if (window.location.pathname.endsWith('camera.html') && !document.referrer) {
+    window.location.href = 'index.html';
+  }
+</script>
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wonder Lens</title>
+  <title>Wonder Lens Camera</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="site-header">
-    <h1 class="brand">Wonder Lens</h1>
+    <img src="assets/logo.png" alt="Wonder Lens" class="brand-logo" />
   </header>
 
   <main class="container">
@@ -25,7 +33,7 @@
     </section>
 
     <section id="gallery-section">
-      <h2 class="section-title">My Stickers</h2>
+      <h2 class="section-title">Discovery Gallery</h2>
       <div id="gallery" class="gallery"></div>
     </section>
   </main>
