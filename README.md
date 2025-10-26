@@ -1,7 +1,5 @@
 # Wonder Lens
 
-A minimal README with steps to clone, run locally, and test the app (start page and camera page).
-
 ## Prerequisites
 
 * Git installed.
