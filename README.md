@@ -1,5 +1,16 @@
 # Wonder Lens
 
+## What it Does
+Wonder Lens is a playful camera app powered by Groq AI.
+It gives short imagination prompts like:
+
+ *“I wonder... can you find something that sparkles in nature?”*
+ *“I wonder... can you find something that is hidden in plain sight?”*
+ *“I wonder... can you capture an interesting shape in the landscape?”*
+
+Users take photos, name their discoveries, and save them in a soft, kid-friendly gallery with timestamps and gentle color tones.
+The goal is to make curiosity feel natural and creative again.
+
 ## Prerequisites
 
 * Git installed.
@@ -22,10 +33,8 @@ Open a terminal and run:
 
 ```bash
 git clone https://github.com/nickycodezz/sticka-learn.git
-cd sticka-learn/app
+cd wonder-lens/app
 ```
-
-If the repo path or name differs, adjust the URL accordingly.
 
 ## Prepare assets (one-time)
 
@@ -99,8 +108,20 @@ git push origin main
 http://localhost:8000/assets/bgdeco.png
 ```
 
-## Notes and next steps
+## Database
 
 * The app uses LocalStorage to save gallery images. Those saved images remain in the browser until you clear them or remove them via the app.
-* If you want to reset the saved images, open browser dev tools and clear the `stickers_v1` key from LocalStorage or use the app delete controls.
 
+## What We Learned
+As a team, we learned how to combine creativity, design, and engineering into a single project that actually runs all in under 36 hours.
+Coming into this hackathon, and it being some of our first ever, we came in from different backgrounds. There is knowledge of C, Python, Java, art, AI prompting and writing. With this, we had to quickly learn how to speak a shared language in HTML, CSS, and JavaScript.
+
+We also learned how to use GitHub collaboratively, resolving merge conflicts, committing carefully, and using commands like git pull --rebase, git add, and git push to keep everyone in sync.
+This taught us version control discipline and communication under time pressure.
+
+On the backend and structure side, we learned how to make the camera, AI prompts, and gallery work seamlessly in one flow, serving everything locally while still feeling polished.
+Most importantly, we learned to trust our different strengths, some of us designing the visuals, others debugging the logic. 
+
+Last, but not least, our research, attending workshops, and reaching out to mentors allowed us to to utilize and research new, modern technologies to our project. We recognized and celebrated how each role mattered to the final product and our ability to compromise and use straight forward communication allowed for significant progess. It is truly big step in experiencing collaborative project building. 
+
+ *Special thanks to Knight Hacks VIII at UCF 2025*
